@@ -37,6 +37,35 @@ if (isset ($_POST["save"])){
         $e = $stmt->errorInfo();
         flash("Error creating: " . var_export($e, true));
     }
+	// new update on the users
+    // this is to get the sum of the score
+    $db = getDB();
+    $stmt = $db -> prepare("SELECT user_id, SUM(points_change) as sumscore from PointsHistory WHERE user_id = :q");
+    $r = $stmt -> execute([":q" => "$user"]);
+    if($r)
+    {
+        $result = $stmt -> fetch(PDO::FETCH_ASSOC);
+	$_SESSION["user"]["Score"] = $result["sumscore"];
+
+    }
+    else{
+        flash("There was a problem fetching the results");
+    }
+
+    // to update the score in the Users table
+    $db = getDB();
+    $stmt = $db -> prepare("UPDATE Users set Score = :s where id = :id");
+    $r = $stmt -> execute([
+        ":s" => $result["sumscore"],
+        ":id" => $user
+    ]);
+    if($r)
+    {
+        $result = $stmt -> fetch(PDO::FETCH_ASSOC);
+    }
+    else{
+        flash("There was a problem fetching the results");
+    }
 }
 ?>
 <?php require(__DIR__ . "/partials/flash.php");

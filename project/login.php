@@ -30,7 +30,7 @@ if (isset($_POST["login"])) {
     if ($isValid) {
         $db = getDB();
         if (isset($db)) {
-            $stmt = $db->prepare("SELECT id, email, username, password from Users WHERE email = :email LIMIT 1");
+            $stmt = $db->prepare("SELECT id,Score, email, username, password from Users WHERE email = :email LIMIT 1");
 
               $params = array(":email" => $email);
               $r = $stmt->execute($params);
@@ -41,6 +41,7 @@ if (isset($_POST["login"])) {
 		// echo "uh oh something went wrong: " . var_export($e, true);
             }
             $result = $stmt->fetch(PDO::FETCH_ASSOC);
+	    $_SESSION["user"]["Score"] = $result["Score"];
             if ($result && isset($result["password"])) {
                 $password_hash_from_db = $result["password"];
                 if (password_verify($password, $password_hash_from_db)) {
@@ -58,6 +59,7 @@ SELECT Roles.name FROM Roles JOIN UserRoles on Roles.id = UserRoles.role_id wher
                     else {
                         $_SESSION["user"]["roles"] = [];
                     }
+
                     //on successful login let's serve-side redirect the user to the home page.
                     header("Location: profile.php");
                 }

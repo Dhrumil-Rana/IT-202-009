@@ -128,8 +128,12 @@ if (isset($_POST["saved"])) {
     <input type="password" name="confirm"/>
     <input type="submit" name="saved" value="Save Profile"/>
 </form>
-<a href = "scorehistory.php"><button type="button"> Previous scores </button></a>
 
+    <form action ="scorehistory.php" method ="POST">
+        <input type = "submit" value = "Previous scores">
+    </form>
+
+<br>
 <!-- this is for the top thingy -->
     <form action="top.php" method ="get">
     <label for="score">Choose the top score: </label>
@@ -140,5 +144,20 @@ if (isset($_POST["saved"])) {
         <option value ="Top Lifetime">
     </datalist>
     <input type = "submit">
-    </form> 
+    </form>
+<br>
+<!-- this is for the competition -->
+
+    <form action ="create_competition.php" method ="POST">
+        <input type = "submit" value = "Create Competition">
+    </form>
+
+    <form action ="mycompetition.php" method ="POST">
+        <input type = "submit" value = "My competition">
+    </form>
+
+    <form action ="Competition.php" method ="POST">
+        <input type = "submit" value = "Running Competition">
+    </form>
+
 <?php require(__DIR__ . "/partials/flash.php");
