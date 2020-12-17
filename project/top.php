@@ -6,7 +6,7 @@ $query = $_GET["score"];
 $result = [];
 if($query == "Top weekly") {
     $db = getDB();
-    $stmt = $db->prepare("SELECT user_id,score,Users.username FROM Scores JOIN Users on Scores.user_id = Users.id WHERE Scores.user_id = Users.id  ORDER BY score DESC LIMIT 10");
+    $stmt = $db->prepare("SELECT user_id,Scores.score,Users.username FROM Scores JOIN Users on Scores.user_id = Users.id WHERE Scores.user_id = Users.id  ORDER BY score DESC LIMIT 10");
     $r = $stmt->execute();
     $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
     if (!$result) {
@@ -17,7 +17,7 @@ if($query == "Top weekly") {
 
 elseif($query == "Top monthly"){
     $db = getDB();
-    $stmt = $db->prepare("SELECT user_id,score,Users.username FROM Scores as Scores JOIN Users on Scores.user_id = Users.id where Scores.user_id = Users.id ORDER BY score DESC LIMIT 10");
+    $stmt = $db->prepare("SELECT user_id,Scores.score,Users.username FROM Scores as Scores JOIN Users on Scores.user_id = Users.id where Scores.user_id = Users.id ORDER BY score DESC LIMIT 10");
     $r = $stmt->execute();
     $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
     if (!$result) {
@@ -27,7 +27,7 @@ elseif($query == "Top monthly"){
 }
 elseif($query == "Top Lifetime"){
     $db = getDB();
-    $stmt = $db->prepare("SELECT user_id,score,Users.username FROM Scores as Scores JOIN Users on Scores.user_id = Users.id where Scores.user_id = Users.id ORDER BY score DESC  LIMIT 10");
+    $stmt = $db->prepare("SELECT user_id,Scores.score,Users.username FROM Scores as Scores JOIN Users on Scores.user_id = Users.id where Scores.user_id = Users.id ORDER BY score DESC  LIMIT 10");
     $r = $stmt->execute();
     $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
     if (!$result) {

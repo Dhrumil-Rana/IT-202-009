@@ -74,4 +74,11 @@ function getURL($path) {
     }
     return $_SERVER["CONTEXT_PREFIX"] . "/repo/project/$path";
 }
+
+function getScore(){
+    if(is_logged_in() && isset($_SESSION["user"]["Score"])){
+        return $_SESSION["user"]["Score"];
+    }
+    return 0;
+}
 ?>

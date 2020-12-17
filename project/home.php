@@ -6,6 +6,15 @@ if (isset($_SESSION["user"]) && isset($_SESSION["user"]["email"])) {
     $email = $_SESSION["user"]["email"];
 }
 ?>
-<p>Welcome, <?php echo $email; ?></p>
+    <form action="top.php" method ="get">
+        <label for="score">Choose the top score: </label>
+        <input list ="scores" name = "score" id ="score">
+        <datalist id = "scores">
+            <option value= "Top weekly">
+            <option value="Top monthly">
+            <option value ="Top Lifetime">
+        </datalist>
+        <input type = "submit">
+    </form>
 
 <?php require(__DIR__ . "/partials/flash.php");
